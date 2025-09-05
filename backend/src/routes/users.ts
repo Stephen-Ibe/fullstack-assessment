@@ -24,6 +24,7 @@ router.get("/", async (req: Request, res: Response) => {
     const usersWithAddresses: UserWithAddresses[] = users.map((u: User) => {
       const id = String(u.id);
       const addrs: Address[] = addressesByUser[id] || [];
+
       // Basic validation/formatting: ensure only valid fields are returned
       const sanitized: Address[] = addrs.map((a) => ({
         id: String(a.id),
