@@ -1,7 +1,6 @@
-import express, { Application } from "express";
 import config from "config";
-import postsRouter from "./routes/posts";
-import usersRouter from "./routes/users";
+import express, { Application } from "express";
+import { postsRouter, usersRouter } from "./routes";
 const port = config.get("port") as number;
 
 const app: Application = express();
