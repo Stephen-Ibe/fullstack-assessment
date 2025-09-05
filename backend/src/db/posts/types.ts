@@ -5,3 +5,5 @@ export interface Post {
   body: string;
   created_at: string;
 }
+
+export type NewPostInput = Pick<Post, "user_id" | "title" | "body">;
