@@ -1,5 +1,6 @@
 import { Table, Title } from "@mantine/core";
 import { PageHelmet } from "../components";
+import { useGetAllUsers } from "../lib/api";
 
 const elements = [
   { position: 6, mass: 12.011, symbol: "C", name: "Carbon" },
@@ -21,6 +22,9 @@ function App() {
       <Table.Td>{element.symbol}</Table.Td>
     </Table.Tr>
   ));
+
+  const { data } = useGetAllUsers(0, 4);
+  console.log(data);
 
   return (
     <>
