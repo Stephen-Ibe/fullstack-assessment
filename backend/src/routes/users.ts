@@ -5,6 +5,13 @@ import { getUsers, getUsersCount, User, UserWithAddresses } from "../db/users";
 
 const router = Router();
 
+/**
+ * Description - Get a list of users with optional pagination
+ * @param {any} "/"
+ * @param {any} async(req:Request
+ * @param {any} res:Response
+ * @returns {any}
+ */
 router.get("/", async (req: Request, res: Response) => {
   try {
     const pageNumber = Number(req.query.pageNumber) || 0;
@@ -43,6 +50,13 @@ router.get("/", async (req: Request, res: Response) => {
   }
 });
 
+/**
+ * Description - Get the total count of users
+ * @param {any} "/count"
+ * @param {any} async(req:Request
+ * @param {any} res:Response
+ * @returns {any}
+ */
 router.get("/count", async (req: Request, res: Response) => {
   try {
     const count = await getUsersCount();

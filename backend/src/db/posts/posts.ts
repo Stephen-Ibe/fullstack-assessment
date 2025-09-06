@@ -7,6 +7,11 @@ import {
 } from "./query-templates";
 import { NewPostInput, Post } from "./types";
 
+/**
+ * Description - Get posts by user id
+ * @param {any} userId:string
+ * @returns {any}
+ */
 export const getPosts = (userId: string): Promise<Post[]> =>
   new Promise((resolve, reject) => {
     connection.all(selectPostsTemplate, [userId], (error, results) => {
@@ -17,6 +22,11 @@ export const getPosts = (userId: string): Promise<Post[]> =>
     });
   });
 
+/**
+ * Description - Delete post by id
+ * @param {any} id:string
+ * @returns {any}
+ */
 export const deletePostById = (id: string): Promise<number> =>
   new Promise((resolve, reject) => {
     connection.run(deletePostByIdTemplate, [id], function (this, err) {
@@ -28,6 +38,11 @@ export const deletePostById = (id: string): Promise<number> =>
     });
   });
 
+/**
+ * Description - Create a new post
+ * @param {any} input:NewPostInput
+ * @returns {any}
+ */
 export const createPost = (input: NewPostInput): Promise<Post> =>
   new Promise((resolve, reject) => {
     const id = randomUUID();

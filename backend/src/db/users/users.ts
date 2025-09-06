@@ -6,6 +6,10 @@ import {
 } from "./query-templates";
 import { User } from "./types";
 
+/**
+ * Description - Get total count of users
+ * @returns {any}
+ */
 export const getUsersCount = (): Promise<number> =>
   new Promise((resolve, reject) => {
     connection.get<{ count: number }>(
@@ -19,6 +23,12 @@ export const getUsersCount = (): Promise<number> =>
     );
   });
 
+/**
+ * Description - Get users with pagination
+ * @param {any} pageNumber:number
+ * @param {any} pageSize:number
+ * @returns {any}
+ */
 export const getUsers = (
   pageNumber: number,
   pageSize: number

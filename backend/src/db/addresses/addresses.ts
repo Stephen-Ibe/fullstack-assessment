@@ -2,6 +2,11 @@ import { connection } from "../connection";
 import { selectAddressesByUserIds } from "./query-templates";
 import { Address, AddressByUserId } from "./types";
 
+/**
+ * Description - Get addresses by user IDs
+ * @param {any} userIds:string[]
+ * @returns {any}
+ */
 export const getAddressesByUserIds = (
   userIds: string[]
 ): Promise<AddressByUserId> =>

@@ -3,6 +3,13 @@ import { createPost, deletePostById, getPosts } from "../db/posts";
 
 const router = Router();
 
+/**
+ * Description - Get Posts by User ID
+ * @param {any} "/"
+ * @param {any} async(req:Request
+ * @param {any} res:Response
+ * @returns {any}
+ */
 router.get("/", async (req: Request, res: Response) => {
   const userId = req.query.userId?.toString();
   if (!userId) {
@@ -13,6 +20,13 @@ router.get("/", async (req: Request, res: Response) => {
   res.send(posts);
 });
 
+/**
+ * Description - Delete Post by ID
+ * @param {any} "/:id"
+ * @param {any} async(req:Request
+ * @param {any} res:Response
+ * @returns {any}
+ */
 router.delete("/:id", async (req: Request, res: Response) => {
   try {
     const id = req.params.id?.toString();
@@ -31,6 +45,13 @@ router.delete("/:id", async (req: Request, res: Response) => {
   }
 });
 
+/**
+ * Description - Create a new Post
+ * @param {any} "/"
+ * @param {any} async(req:Request
+ * @param {any} res:Response
+ * @returns {any}
+ */
 router.post("/", async (req: Request, res: Response) => {
   try {
     const { title, body, userId } = (req.body ?? {}) as {
