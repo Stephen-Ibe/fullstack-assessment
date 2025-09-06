@@ -7,8 +7,8 @@ const NotFound = lazy(() => import("./pages/NotFound"));
 const router = createBrowserRouter([
   {
     path: "/",
-    Component: Home,
-    index: true,
+    children: [{ Component: Home, index: true }],
+    hasErrorBoundary: true,
   },
   { path: "*", Component: NotFound },
 ]);
