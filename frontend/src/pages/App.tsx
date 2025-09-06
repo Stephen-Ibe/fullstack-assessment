@@ -1,30 +1,23 @@
-import { Table, Title } from "@mantine/core";
+import { Loader, Table, Title } from "@mantine/core";
+import { useMemo } from "react";
 import { PageHelmet } from "../components";
-import { useGetAllUsers } from "../lib/api";
-
-const elements = [
-  { position: 6, mass: 12.011, symbol: "C", name: "Carbon" },
-  { position: 7, mass: 14.007, symbol: "N", name: "Nitrogen" },
-  { position: 39, mass: 88.906, symbol: "Y", name: "Yttrium" },
-  { position: 56, mass: 137.33, symbol: "Ba", name: "Barium" },
-  { position: 58, mass: 140.12, symbol: "Ce", name: "Cerium" },
-];
+import { formatAddress, useGetAllUsers, type User } from "../lib";
 
 function App() {
-  const rows = elements.map((element) => (
-    <Table.Tr
-      key={element.name}
-      style={{ cursor: "pointer" }}
-      onClick={() => alert(`Clicked row: ${element.name}`)}
-    >
-      <Table.Td>{element.position}</Table.Td>
-      <Table.Td>{element.name}</Table.Td>
-      <Table.Td>{element.symbol}</Table.Td>
-    </Table.Tr>
-  ));
+  const { data, isLoading } = useGetAllUsers(0, 4);
 
-  const { data } = useGetAllUsers(0, 4);
-  console.log(data);
+  const userRows = useMemo(() => {
+    if (!data) return null;
+    return data.map(({ id, name, email, address }: User) => (
+      <Table.Tr key={id} style={{ cursor: "pointer" }}>
+        <Table.Td>{name}</Table.Td>
+        <Table.Td>{email}</Table.Td>
+        <Table.Td>
+          {address && address.length > 0 ? formatAddress(address[0]) : "-"}
+        </Table.Td>
+      </Table.Tr>
+    ));
+  }, [data]);
 
   return (
     <>
@@ -42,7 +35,19 @@ function App() {
                   <Table.Th style={{ width: 392 }}>Address</Table.Th>
                 </Table.Tr>
               </Table.Thead>
-              <Table.Tbody>{rows}</Table.Tbody>
+              <Table.Tbody>
+                {isLoading ? (
+                  <Table.Tr>
+                    <Table.Td colSpan={3} className="text-center">
+                      <div className="mx-auto w-fit">
+                        <Loader color="#7F56D9" type="dots" />
+                      </div>
+                    </Table.Td>
+                  </Table.Tr>
+                ) : (
+                  userRows
+                )}
+              </Table.Tbody>
             </Table>
           </div>
         </div>
