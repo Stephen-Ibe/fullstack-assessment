@@ -1,6 +1,10 @@
 import { randomUUID } from "crypto";
 import { connection } from "../connection";
-import { insertPostTemplate, selectPostsTemplate } from "./query-templates";
+import {
+  deletePostByIdTemplate,
+  insertPostTemplate,
+  selectPostsTemplate,
+} from "./query-templates";
 import { NewPostInput, Post } from "./types";
 
 export const getPosts = (userId: string): Promise<Post[]> =>
@@ -10,6 +14,17 @@ export const getPosts = (userId: string): Promise<Post[]> =>
         reject(error);
       }
       resolve(results as Post[]);
+    });
+  });
+
+export const deletePostById = (id: string): Promise<number> =>
+  new Promise((resolve, reject) => {
+    connection.run(deletePostByIdTemplate, [id], function (this, err) {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve(this.changes as number);
     });
   });
 

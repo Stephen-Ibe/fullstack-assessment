@@ -1,5 +1,5 @@
 import { Request, Response, Router } from "express";
-import { createPost, getPosts } from "../db/posts";
+import { createPost, deletePostById, getPosts } from "../db/posts";
 
 const router = Router();
 
@@ -11,6 +11,24 @@ router.get("/", async (req: Request, res: Response) => {
   }
   const posts = await getPosts(userId);
   res.send(posts);
+});
+
+router.delete("/:id", async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id?.toString();
+    if (!id) {
+      res.status(400).send({ error: "Post id is required" });
+      return;
+    }
+    const changes = await deletePostById(id);
+    if (changes === 0) {
+      res.status(404).send({ message: "Post not found" });
+      return;
+    }
+    res.status(200).send({ message: "Post deleted" });
+  } catch (e) {
+    res.status(500).send({ error: "Failed to delete post" });
+  }
 });
 
 router.post("/", async (req: Request, res: Response) => {
