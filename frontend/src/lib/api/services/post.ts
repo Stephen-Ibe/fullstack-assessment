@@ -1,8 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { PostClient } from "../clients";
 
-export const useGetAllPosts = () =>
+export const useGetUsersPosts = (userId: string) =>
   useQuery({
-    queryFn: PostClient.getAllPosts,
-    queryKey: ["posts"],
+    queryFn: () => PostClient.getUsersPosts(userId),
+    queryKey: ["posts", userId],
+    enabled: !!userId,
   });

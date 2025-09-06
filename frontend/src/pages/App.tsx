@@ -4,7 +4,7 @@ import { PageHelmet, UserTableRow } from "../components";
 import { useUsers, type User } from "../lib";
 
 function App() {
-  const { data, isLoading } = useUsers();
+  const { data, isLoading, gotoUserPosts } = useUsers();
 
   const userRows = useMemo(() => {
     if (!data) return null;
@@ -12,7 +12,7 @@ function App() {
       <UserTableRow
         key={id}
         data={{ name, email, address }}
-        onClick={() => alert(`User: ${name}`)}
+        onClick={() => gotoUserPosts(id)}
       />
     ));
   }, [data]);

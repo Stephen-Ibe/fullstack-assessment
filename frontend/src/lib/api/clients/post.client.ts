@@ -1,8 +1,13 @@
 import { Client } from "../../config";
 
 const postClient = {
-  getAllPosts: async () => {
-    return await Client.get("/posts");
+  getUsersPosts: async (userId: string) => {
+    return await Client.get("/posts", {
+      params: {
+        userId,
+      },
+    });
+    // return await Client.get(`/posts?userId=${userId}`);
   },
 };
 
