@@ -1,21 +1,19 @@
 import { Loader, Table, Title } from "@mantine/core";
 import { useMemo } from "react";
-import { PageHelmet } from "../components";
-import { formatAddress, useGetAllUsers, type User } from "../lib";
+import { PageHelmet, UserTableRow } from "../components";
+import { useUsers, type User } from "../lib";
 
 function App() {
-  const { data, isLoading } = useGetAllUsers(0, 4);
+  const { data, isLoading } = useUsers();
 
   const userRows = useMemo(() => {
     if (!data) return null;
     return data.map(({ id, name, email, address }: User) => (
-      <Table.Tr key={id} style={{ cursor: "pointer" }}>
-        <Table.Td>{name}</Table.Td>
-        <Table.Td>{email}</Table.Td>
-        <Table.Td>
-          {address && address.length > 0 ? formatAddress(address[0]) : "-"}
-        </Table.Td>
-      </Table.Tr>
+      <UserTableRow
+        key={id}
+        data={{ name, email, address }}
+        onClick={() => alert(`User: ${name}`)}
+      />
     ));
   }, [data]);
 
