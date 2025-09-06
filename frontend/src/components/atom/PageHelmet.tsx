@@ -6,10 +6,10 @@ type Props = {
 };
 
 export const PageHelmet = ({
-  title = "UMS",
+  title,
   description = "User Management System",
 }: Props) => (
-  <Helmet title={title} prioritizeSeoTags>
+  <Helmet title={`${title} | UMS`} prioritizeSeoTags>
     <meta charSet="utf-8" />
     <meta name="description" content={description} />
   </Helmet>
