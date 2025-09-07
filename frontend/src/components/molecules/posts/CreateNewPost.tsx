@@ -41,8 +41,8 @@ export const CreateNewPost = ({ opened, close }: Props) => {
           size="md"
           radius="sm"
           rows={6}
-          key={form.key("content")}
-          {...form.getInputProps("content")}
+          key={form.key("body")}
+          {...form.getInputProps("body")}
         />
         <div className="mt-2 ml-auto space-x-4 w-fit">
           <Button

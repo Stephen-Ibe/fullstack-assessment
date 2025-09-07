@@ -9,14 +9,14 @@ export const usePosts = () => {
 
   const form = useForm<{
     title: string;
-    content: string;
+    body: string;
   }>({
-    initialValues: { title: "", content: "" },
+    initialValues: { title: "", body: "" },
     validateInputOnChange: true,
     validate: yupResolver(createPostSchema),
   });
 
-  const handleCreatePost = (values: { title: string; content: string }) => {
+  const handleCreatePost = (values: { title: string; body: string }) => {
     console.log(values);
   };
 
