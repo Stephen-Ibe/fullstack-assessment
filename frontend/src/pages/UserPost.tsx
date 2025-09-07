@@ -1,4 +1,11 @@
-import { Loader, Modal, Text, Title } from "@mantine/core";
+import {
+  Button,
+  Loader,
+  Modal,
+  Text,
+  Textarea,
+  TextInput,
+} from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { FaArrowLeft } from "react-icons/fa";
 import { useLocation, useParams } from "react-router";
@@ -54,14 +61,41 @@ const UserPost = () => {
               onClose={close}
               centered
               withCloseButton={false}
+              closeOnClickOutside={false}
               size="lg"
-              title={
-                <Title fw={500} order={2}>
-                  New Post
-                </Title>
-              }
+              title={<span className="text-2xl font-semibold">New Post</span>}
             >
-              <Text>Login to continue</Text>
+              <form className="flex flex-col gap-y-5">
+                <TextInput
+                  label="Post Title"
+                  placeholder="Give your post a title"
+                  size="md"
+                  radius="sm"
+                />
+                <Textarea
+                  label="Post Content"
+                  placeholder="Write something mind blowing..."
+                  size="md"
+                  radius="sm"
+                  rows={6}
+                />
+                <div className="my-2 ml-auto space-x-4 w-fit">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    color="gray"
+                    radius="sm"
+                    onClick={close}
+                    size="md"
+                  >
+                    Cancel
+                  </Button>
+
+                  <Button type="submit" color="#334155" radius="sm" size="md">
+                    Publish
+                  </Button>
+                </div>
+              </form>
             </Modal>
           </>
         )}
