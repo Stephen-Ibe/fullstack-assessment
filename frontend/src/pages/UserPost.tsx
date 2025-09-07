@@ -2,6 +2,7 @@ import { Button, Loader, Text } from "@mantine/core";
 import { FaArrowLeft, FaHome } from "react-icons/fa";
 import { useLocation, useParams } from "react-router";
 import {
+  ConfirmDelete,
   CreateNewPost,
   NewPostCard,
   PageHelmet,
@@ -20,12 +21,16 @@ const UserPost = () => {
 
   const {
     posts: {
-      goBackToUsers,
       userPosts,
       isLoadingPosts,
       isErrorPosts,
-      handleDeletePost,
       isDeletingPost,
+      openedDelete,
+      selectedPostData,
+      goBackToUsers,
+      closeDelete,
+      showDeleteModal,
+      handleDeletePost,
     },
     modalActions: { opened, open, close },
   } = usePosts(userId || "");
@@ -95,12 +100,18 @@ const UserPost = () => {
               <PostCard
                 key={post.id}
                 post={post}
-                deletePost={() => handleDeletePost(post.id)}
+                deletePost={() => showDeleteModal(post.id, post.title)}
               />
             ))}
           </div>
 
           <CreateNewPost opened={opened} close={close} userId={userId || ""} />
+          <ConfirmDelete
+            opened={openedDelete}
+            onClose={closeDelete}
+            postData={selectedPostData}
+            deleteActions={{ isDeletingPost, handleDeletePost }}
+          />
         </>
       </section>
     </>

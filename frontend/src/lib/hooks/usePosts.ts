@@ -2,6 +2,7 @@ import { useForm } from "@mantine/form";
 import { useDisclosure } from "@mantine/hooks";
 import { yupResolver } from "mantine-form-yup-resolver";
 
+import { useState } from "react";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { useCreateNewPost, useDeletePostById, useGetUsersPosts } from "../api";
@@ -10,6 +11,15 @@ import { createPostSchema } from "../schema";
 export const usePosts = (userId: string = "") => {
   const navigate = useNavigate();
   const [opened, { open, close }] = useDisclosure(false);
+  const [openedDelete, { open: openDelete, close: closeDelete }] =
+    useDisclosure(false);
+
+  const [selectedPostData, setSelectedPostData] = useState<
+    Record<string, string>
+  >({
+    postId: "",
+    postTitle: "",
+  });
 
   const { mutate: createNewPost, isPending: isCreatingPost } =
     useCreateNewPost();
@@ -61,12 +71,18 @@ export const usePosts = (userId: string = "") => {
     deletePostById(postId, {
       onSuccess: () => {
         toast.success("Post deleted successfully!");
+        closeDelete();
         refetchUserPosts();
       },
       onError: (error) => {
         toast.error(`${error ?? "Failed to delete post. Please try again."} `);
       },
     });
+  };
+
+  const showDeleteModal = (postId: string, postTitle: string) => {
+    setSelectedPostData({ postId, postTitle });
+    openDelete();
   };
 
   const goBackToUsers = () => {
@@ -88,6 +104,10 @@ export const usePosts = (userId: string = "") => {
       refetchUserPosts,
       handleDeletePost,
       isDeletingPost,
+      openedDelete,
+      selectedPostData,
+      closeDelete,
+      showDeleteModal,
     },
   };
 };
