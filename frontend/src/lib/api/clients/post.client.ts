@@ -1,13 +1,13 @@
 import { Client } from "../../config";
+import type { Post } from "../../types";
 
 const postClient = {
-  getUsersPosts: async (userId: string) => {
+  getUsersPosts: async (userId: string): Promise<Post[]> => {
     return await Client.get("/posts", {
       params: {
         userId,
       },
     });
-    // return await Client.get(`/posts?userId=${userId}`);
   },
 };
 

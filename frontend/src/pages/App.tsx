@@ -12,7 +12,7 @@ function App() {
       <UserTableRow
         key={id}
         data={{ name, email, address }}
-        onClick={() => gotoUserPosts(id)}
+        onClick={() => gotoUserPosts({ id, name, email })}
       />
     ));
   }, [data]);
