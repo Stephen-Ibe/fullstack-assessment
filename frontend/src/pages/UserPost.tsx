@@ -25,6 +25,7 @@ const UserPost = () => {
       isLoadingPosts,
       isErrorPosts,
       handleDeletePost,
+      isDeletingPost,
     },
     modalActions: { opened, open, close },
   } = usePosts(userId || "");

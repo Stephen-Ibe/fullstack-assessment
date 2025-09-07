@@ -49,7 +49,9 @@ export const usePosts = (userId: string = "") => {
           handleRefetchUserPosts(closeModal);
         },
         onError: (error) => {
-          console.error("Error creating post:", error);
+          toast.error(
+            `${error ?? "Failed to create post. Please try again."} `
+          );
         },
       }
     );
@@ -58,10 +60,11 @@ export const usePosts = (userId: string = "") => {
   const handleDeletePost = (postId: string) => {
     deletePostById(postId, {
       onSuccess: () => {
+        toast.success("Post deleted successfully!");
         refetchUserPosts();
       },
       onError: (error) => {
-        console.error("Error deleting post:", error);
+        toast.error(`${error ?? "Failed to delete post. Please try again."} `);
       },
     });
   };
