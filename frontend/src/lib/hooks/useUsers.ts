@@ -5,7 +5,9 @@ export const useUsers = (userId: string = "") => {
   const navigate = useNavigate();
   const { data: allUsers, isLoading } = useGetAllUsers(0, 4);
 
-  const { data: userPosts } = useGetUsersPosts(userId || "");
+  const { data: userPosts, isLoading: isLoadingPosts } = useGetUsersPosts(
+    userId || ""
+  );
 
   const gotoUserPosts = ({
     id,
@@ -29,6 +31,6 @@ export const useUsers = (userId: string = "") => {
 
   return {
     user: { allUsers, isLoading, gotoUserPosts },
-    posts: { userPosts, goBackToUsers },
+    posts: { userPosts, isLoadingPosts, goBackToUsers },
   };
 };

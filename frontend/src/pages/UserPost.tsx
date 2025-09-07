@@ -2,7 +2,7 @@ import { Loader, Text } from "@mantine/core";
 import { FaArrowLeft } from "react-icons/fa";
 import { useLocation, useParams } from "react-router";
 import { NewPostCard, PageHelmet, PostCard } from "../components";
-import { useGetUsersPosts, useUsers } from "../lib";
+import { useUsers } from "../lib";
 
 const UserPost = () => {
   const { userId } = useParams<{ userId: string }>();
@@ -11,19 +11,14 @@ const UserPost = () => {
   } = useLocation();
 
   const {
-    posts: { goBackToUsers },
+    posts: { goBackToUsers, userPosts, isLoadingPosts },
   } = useUsers(userId || "");
-
-  const { data: userPosts, isLoading } = useGetUsersPosts(userId || "") as {
-    data: Array<{ id: string; title: string; body: string }>;
-    isLoading: boolean;
-  };
 
   return (
     <>
       <PageHelmet title="User Posts" />
       <section className="container h-screen p-24 mx-auto">
-        {isLoading ? (
+        {isLoadingPosts ? (
           <div className="mx-auto w-fit">
             <Loader color="#7F56D9" type="dots" />
           </div>
