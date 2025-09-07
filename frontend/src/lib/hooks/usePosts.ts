@@ -3,19 +3,25 @@ import { useDisclosure } from "@mantine/hooks";
 import { yupResolver } from "mantine-form-yup-resolver";
 
 import { useNavigate } from "react-router";
-import { useCreateNewPost, useGetUsersPosts } from "../api";
+import { toast } from "react-toastify";
+import { useCreateNewPost, useDeletePostById, useGetUsersPosts } from "../api";
 import { createPostSchema } from "../schema";
 
 export const usePosts = (userId: string = "") => {
   const navigate = useNavigate();
   const [opened, { open, close }] = useDisclosure(false);
-  const { mutate: createNewPost, isPending } = useCreateNewPost();
+
+  const { mutate: createNewPost, isPending: isCreatingPost } =
+    useCreateNewPost();
+  const { mutate: deletePostById, isPending: isDeletingPost } =
+    useDeletePostById();
   const {
     data: userPosts,
     isLoading: isLoadingPosts,
     error: isErrorPosts,
     refetch: refetchUserPosts,
   } = useGetUsersPosts(userId || "");
+
   const form = useForm<{
     title: string;
     body: string;
@@ -30,7 +36,6 @@ export const usePosts = (userId: string = "") => {
     close();
   };
 
-  // For this implementation, assume refetchUserPosts is passed as an argument
   const handleCreatePost = (
     values: { title: string; body: string },
     closeModal: () => void
@@ -39,6 +44,7 @@ export const usePosts = (userId: string = "") => {
       { ...values, userId },
       {
         onSuccess: () => {
+          toast.success("Post created successfully!");
           form.reset();
           handleRefetchUserPosts(closeModal);
         },
@@ -47,6 +53,17 @@ export const usePosts = (userId: string = "") => {
         },
       }
     );
+  };
+
+  const handleDeletePost = (postId: string) => {
+    deletePostById(postId, {
+      onSuccess: () => {
+        refetchUserPosts();
+      },
+      onError: (error) => {
+        console.error("Error deleting post:", error);
+      },
+    });
   };
 
   const goBackToUsers = () => {
@@ -59,13 +76,15 @@ export const usePosts = (userId: string = "") => {
 
   return {
     modalActions: { opened, open, close },
-    formActions: { handleCreatePost, isPending, form },
+    formActions: { handleCreatePost, isCreatingPost, form },
     posts: {
       userPosts,
       isLoadingPosts,
       isErrorPosts,
       goBackToUsers,
       refetchUserPosts,
+      handleDeletePost,
+      isDeletingPost,
     },
   };
 };

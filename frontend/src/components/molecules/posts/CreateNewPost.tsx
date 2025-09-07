@@ -9,7 +9,7 @@ type Props = {
 
 export const CreateNewPost = ({ opened, close, userId }: Props) => {
   const {
-    formActions: { handleCreatePost, form, isPending },
+    formActions: { handleCreatePost, form, isCreatingPost },
   } = usePosts(userId);
 
   return (
@@ -53,7 +53,7 @@ export const CreateNewPost = ({ opened, close, userId }: Props) => {
             radius="sm"
             onClick={close}
             size="md"
-            disabled={isPending}
+            disabled={isCreatingPost}
           >
             Cancel
           </Button>
@@ -63,8 +63,8 @@ export const CreateNewPost = ({ opened, close, userId }: Props) => {
             color="#334155"
             radius="sm"
             size="md"
-            loading={isPending}
-            disabled={isPending}
+            loading={isCreatingPost}
+            disabled={isCreatingPost}
           >
             Publish
           </Button>

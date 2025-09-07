@@ -19,7 +19,13 @@ const UserPost = () => {
   const email = location.state?.email;
 
   const {
-    posts: { goBackToUsers, userPosts, isLoadingPosts, isErrorPosts },
+    posts: {
+      goBackToUsers,
+      userPosts,
+      isLoadingPosts,
+      isErrorPosts,
+      handleDeletePost,
+    },
     modalActions: { opened, open, close },
   } = usePosts(userId || "");
 
@@ -85,7 +91,11 @@ const UserPost = () => {
           <div className="grid grid-cols-3 gap-12 py-10 pb-10">
             <NewPostCard onOpen={open} />
             {userPosts?.map((post) => (
-              <PostCard key={post.id} post={post} />
+              <PostCard
+                key={post.id}
+                post={post}
+                deletePost={() => handleDeletePost(post.id)}
+              />
             ))}
           </div>
 
