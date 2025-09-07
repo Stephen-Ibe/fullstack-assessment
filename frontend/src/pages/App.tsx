@@ -17,7 +17,7 @@ function App() {
         onClick={() => gotoUserPosts({ id, name, email })}
       />
     ));
-  }, [data]);
+  }, [allUsers, gotoUserPosts]);
 
   return (
     <>
