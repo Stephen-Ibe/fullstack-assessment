@@ -1,4 +1,5 @@
 import { Text, Title } from "@mantine/core";
+import { MdAddCircleOutline } from "react-icons/md";
 import { useLocation, useParams } from "react-router";
 import { PageHelmet } from "../components";
 import { useGetUsersPosts } from "../lib";
@@ -26,10 +27,14 @@ const UserPost = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-3 my-8 gap-12">
-          <div className="h-[293px] flex items-center justify-center border-2 border-dashed border-[#D5D7DA] rounded-lg cursor-pointer hover:shadow-xl transition-shadow">
-            <Image />
-            <Text>New Post</Text>
+        <div className="grid grid-cols-3 my-6 gap-12 py-10">
+          <div className="h-[293px] flex items-center justify-center border-2 border-dashed border-[#D5D7DA] rounded-lg cursor-pointer hover:shadow-lg transition-shadow">
+            <div className="text-center flex flex-col items-center text-[#535862] gap-y-1">
+              <MdAddCircleOutline size={24} />
+              <Text size="lg" fw={700}>
+                New Post
+              </Text>
+            </div>
           </div>
 
           {userPosts?.map((post) => (
