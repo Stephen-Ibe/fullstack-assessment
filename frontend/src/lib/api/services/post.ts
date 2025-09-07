@@ -13,3 +13,8 @@ export const useCreateNewPost = () =>
   useMutation({
     mutationFn: PostClient.createNewPost,
   });
+
+export const useDeletePostById = () =>
+  useMutation({
+    mutationFn: PostClient.deletePostById,
+  });

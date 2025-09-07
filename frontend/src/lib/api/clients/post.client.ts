@@ -13,6 +13,10 @@ const postClient = {
   createNewPost: async (payload: CreateNewPostPayload) => {
     return await Client.post("/posts", payload);
   },
+
+  deletePostById: async (postId: string) => {
+    return await Client.delete(`/posts/${postId}`);
+  },
 };
 
 export default postClient;
