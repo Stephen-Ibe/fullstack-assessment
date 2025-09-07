@@ -4,11 +4,13 @@ import { PageHelmet, UserTableRow } from "../components";
 import { useUsers, type User } from "../lib";
 
 function App() {
-  const { data, isLoading, gotoUserPosts } = useUsers();
+  const {
+    user: { allUsers, isLoading, gotoUserPosts },
+  } = useUsers();
 
   const userRows = useMemo(() => {
-    if (!data) return null;
-    return data.map(({ id, name, email, address }: User) => (
+    if (!allUsers) return null;
+    return allUsers.map(({ id, name, email, address }: User) => (
       <UserTableRow
         key={id}
         data={{ name, email, address }}
