@@ -25,7 +25,7 @@ export const usePosts = (userId: string = "") => {
     validate: yupResolver(createPostSchema),
   });
 
-  const { mutate: createNewPost } = useCreateNewPost();
+  const { mutate: createNewPost, isPending } = useCreateNewPost();
 
   const handleRefetchUserPosts = (close: () => void) => {
     refetchUserPosts();
@@ -61,7 +61,7 @@ export const usePosts = (userId: string = "") => {
 
   return {
     modalActions: { opened, open, close },
-    formActions: { handleCreatePost, form },
+    formActions: { handleCreatePost, isPending, form },
     posts: {
       userPosts,
       isLoadingPosts,
