@@ -1,16 +1,13 @@
-import {
-  Button,
-  Loader,
-  Modal,
-  Text,
-  Textarea,
-  TextInput,
-} from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
+import { Loader, Text } from "@mantine/core";
 import { FaArrowLeft } from "react-icons/fa";
 import { useLocation, useParams } from "react-router";
-import { NewPostCard, PageHelmet, PostCard } from "../components";
-import { useUsers } from "../lib";
+import {
+  CreateNewPost,
+  NewPostCard,
+  PageHelmet,
+  PostCard,
+} from "../components";
+import { usePosts, useUsers } from "../lib";
 
 const UserPost = () => {
   const { userId } = useParams<{ userId: string }>();
@@ -22,7 +19,9 @@ const UserPost = () => {
     posts: { goBackToUsers, userPosts, isLoadingPosts },
   } = useUsers(userId || "");
 
-  const [opened, { open, close }] = useDisclosure(false);
+  const {
+    modalActions: { opened, open, close },
+  } = usePosts();
 
   return (
     <>
@@ -56,47 +55,7 @@ const UserPost = () => {
               ))}
             </div>
 
-            <Modal
-              opened={opened}
-              onClose={close}
-              centered
-              withCloseButton={false}
-              closeOnClickOutside={false}
-              size="lg"
-              title={<span className="text-2xl font-semibold">New Post</span>}
-            >
-              <form className="flex flex-col gap-y-5">
-                <TextInput
-                  label="Post Title"
-                  placeholder="Give your post a title"
-                  size="md"
-                  radius="sm"
-                />
-                <Textarea
-                  label="Post Content"
-                  placeholder="Write something mind blowing..."
-                  size="md"
-                  radius="sm"
-                  rows={6}
-                />
-                <div className="my-2 ml-auto space-x-4 w-fit">
-                  <Button
-                    type="button"
-                    variant="outline"
-                    color="gray"
-                    radius="sm"
-                    onClick={close}
-                    size="md"
-                  >
-                    Cancel
-                  </Button>
-
-                  <Button type="submit" color="#334155" radius="sm" size="md">
-                    Publish
-                  </Button>
-                </div>
-              </form>
-            </Modal>
+            <CreateNewPost opened={opened} close={close} />
           </>
         )}
       </section>
