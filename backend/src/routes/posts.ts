@@ -14,14 +14,14 @@ const router = Router();
 router.get("/", async (req: Request, res: Response) => {
   const userId = req.query.userId?.toString();
   if (!userId) {
-    res.status(400).send({ error: "userId is required" });
+    res.status(400).send({ message: "userId is required" });
     return;
   }
   // Check if user exists
   const users = await getUsers(0, 10000); // get all users (or optimize for large datasets)
   const userExists = users.some((u: any) => u.id === userId);
   if (!userExists) {
-    res.status(404).send({ error: "User not found" });
+    res.status(404).send({ message: "User not found" });
     return;
   }
   const posts = await getPosts(userId);
@@ -39,7 +39,7 @@ router.delete("/:id", async (req: Request, res: Response) => {
   try {
     const id = req.params.id?.toString();
     if (!id) {
-      res.status(400).send({ error: "Post id is required" });
+      res.status(400).send({ message: "Post id is required" });
       return;
     }
     const changes = await deletePostById(id);
@@ -49,7 +49,7 @@ router.delete("/:id", async (req: Request, res: Response) => {
     }
     res.status(200).send({ message: "Post deleted" });
   } catch (e) {
-    res.status(500).send({ error: "Failed to delete post" });
+    res.status(500).send({ message: "Failed to delete post" });
   }
 });
 
@@ -74,7 +74,7 @@ router.post("/", async (req: Request, res: Response) => {
       (typeof userId !== "string" && typeof userId !== "number")
     ) {
       res.status(400).send({
-        error: "Invalid input. Expecting title, body, userId",
+        message: "Invalid input. Expecting title, body, userId",
       });
       return;
     }
@@ -84,7 +84,7 @@ router.post("/", async (req: Request, res: Response) => {
     const cleanUserId = String(userId).trim();
 
     if (!cleanTitle || !cleanBody || !cleanUserId) {
-      res.status(400).send({ error: "title, body, and userId are required" });
+      res.status(400).send({ message: "title, body, and userId are required" });
       return;
     }
 
@@ -95,7 +95,7 @@ router.post("/", async (req: Request, res: Response) => {
     });
     res.status(201).send(created);
   } catch (error) {
-    res.status(500).send({ error: "Failed to create post" });
+    res.status(500).send({ message: "Failed to create post" });
   }
 });
 

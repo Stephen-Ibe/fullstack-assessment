@@ -7,15 +7,15 @@ import { useCreateNewPost, useGetUsersPosts } from "../api";
 import { createPostSchema } from "../schema";
 
 export const usePosts = (userId: string = "") => {
+  const navigate = useNavigate();
+  const [opened, { open, close }] = useDisclosure(false);
+  const { mutate: createNewPost, isPending } = useCreateNewPost();
   const {
     data: userPosts,
     isLoading: isLoadingPosts,
-    isError: isErrorPosts,
+    error: isErrorPosts,
     refetch: refetchUserPosts,
   } = useGetUsersPosts(userId || "");
-  const navigate = useNavigate();
-  const [opened, { open, close }] = useDisclosure(false);
-
   const form = useForm<{
     title: string;
     body: string;
@@ -24,8 +24,6 @@ export const usePosts = (userId: string = "") => {
     validateInputOnChange: true,
     validate: yupResolver(createPostSchema),
   });
-
-  const { mutate: createNewPost, isPending } = useCreateNewPost();
 
   const handleRefetchUserPosts = (close: () => void) => {
     refetchUserPosts();

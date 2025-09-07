@@ -17,7 +17,7 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   (response) => response,
   (error: AxiosError) => {
-    return Promise.reject(error);
+    return Promise.reject(error?.response?.data || error.message);
   }
 );
 

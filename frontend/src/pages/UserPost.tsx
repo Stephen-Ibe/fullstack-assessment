@@ -32,16 +32,17 @@ const UserPost = () => {
   }
 
   if (isErrorPosts) {
+    const errorMsg = "Failed to load posts. Please try again later.";
     return (
       <div className="container flex flex-col items-center justify-center h-screen mx-auto gap-y-2">
         <Text c="red" size="xl" fw={700}>
-          "Failed to load posts. Please try again later."
+          {(isErrorPosts?.message as string) || errorMsg}
         </Text>
         <Button
           size="sm"
           variant="outline"
           leftSection={<FaHome />}
-          onClick={goBackToUsers}
+          onClick={() => (window.location.href = "/")}
         >
           View Users
         </Button>
