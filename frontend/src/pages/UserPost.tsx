@@ -1,4 +1,5 @@
-import { Loader, Text } from "@mantine/core";
+import { Loader, Modal, Text, Title } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
 import { FaArrowLeft } from "react-icons/fa";
 import { useLocation, useParams } from "react-router";
 import { NewPostCard, PageHelmet, PostCard } from "../components";
@@ -13,6 +14,8 @@ const UserPost = () => {
   const {
     posts: { goBackToUsers, userPosts, isLoadingPosts },
   } = useUsers(userId || "");
+
+  const [opened, { open, close }] = useDisclosure(false);
 
   return (
     <>
@@ -40,11 +43,26 @@ const UserPost = () => {
             </div>
 
             <div className="grid grid-cols-3 gap-12 my-10">
-              <NewPostCard />
+              <NewPostCard onOpen={open} />
               {userPosts?.map((post) => (
                 <PostCard key={post.id} post={post} />
               ))}
             </div>
+
+            <Modal
+              opened={opened}
+              onClose={close}
+              centered
+              withCloseButton={false}
+              size="lg"
+              title={
+                <Title fw={500} order={2}>
+                  New Post
+                </Title>
+              }
+            >
+              <Text>Login to continue</Text>
+            </Modal>
           </>
         )}
       </section>
