@@ -1,6 +1,12 @@
 @import "tailwindcss";
+html,
+body {
+  @apply box-border p-0 m-0 font-sans;
+  background-color: #ffffff;
+  color: #535862;
+}
 
 /* NotFound Styles */
 .not_found {
-  @apply h-screen flex justify-center items-center flex-col;
+  @apply flex flex-col items-center justify-center h-screen;
 }

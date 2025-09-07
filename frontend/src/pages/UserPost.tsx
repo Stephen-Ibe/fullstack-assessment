@@ -2,13 +2,17 @@ import { Loader, Text } from "@mantine/core";
 import { FaArrowLeft } from "react-icons/fa";
 import { useLocation, useParams } from "react-router";
 import { NewPostCard, PageHelmet, PostCard } from "../components";
-import { useGetUsersPosts } from "../lib";
+import { useGetUsersPosts, useUsers } from "../lib";
 
 const UserPost = () => {
   const { userId } = useParams<{ userId: string }>();
   const {
     state: { name, email },
   } = useLocation();
+
+  const {
+    posts: { goBackToUsers },
+  } = useUsers(userId || "");
 
   const { data: userPosts, isLoading } = useGetUsersPosts(userId || "") as {
     data: Array<{ id: string; title: string; body: string }>;
@@ -18,7 +22,6 @@ const UserPost = () => {
   return (
     <>
       <PageHelmet title="User Posts" />
-
       <section className="container h-screen p-24 mx-auto">
         {isLoading ? (
           <div className="mx-auto w-fit">
@@ -27,7 +30,10 @@ const UserPost = () => {
         ) : (
           <>
             <div>
-              <div className="flex items-center mb-4 cursor-pointer gap-x-2">
+              <div
+                className="flex items-center mb-4 cursor-pointer gap-x-2"
+                onClick={goBackToUsers}
+              >
                 <FaArrowLeft />
                 <Text>Back to Users</Text>
               </div>

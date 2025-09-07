@@ -19,5 +19,16 @@ export const useUsers = (userId: string = "") => {
     navigate(`/${id}/posts`, { state: { name, email } });
   };
 
-  return { user: { allUsers, isLoading, gotoUserPosts }, posts: { userPosts } };
+  const goBackToUsers = () => {
+    if (window.history.length > 1) {
+      navigate(-1);
+    } else {
+      navigate("/");
+    }
+  };
+
+  return {
+    user: { allUsers, isLoading, gotoUserPosts },
+    posts: { userPosts, goBackToUsers },
+  };
 };
