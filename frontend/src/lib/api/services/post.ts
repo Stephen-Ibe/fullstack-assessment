@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import type { Post } from "../../types";
 import { PostClient } from "../clients";
 
@@ -7,4 +7,9 @@ export const useGetUsersPosts = (userId: string) =>
     queryFn: () => PostClient.getUsersPosts(userId),
     queryKey: ["posts", userId],
     enabled: !!userId,
+  });
+
+export const useCreateNewPost = () =>
+  useMutation({
+    mutationFn: PostClient.createNewPost,
   });

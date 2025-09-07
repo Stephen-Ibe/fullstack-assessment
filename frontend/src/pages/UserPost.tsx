@@ -1,5 +1,5 @@
-import { Loader, Text } from "@mantine/core";
-import { FaArrowLeft } from "react-icons/fa";
+import { Button, Loader, Text } from "@mantine/core";
+import { FaArrowLeft, FaHome } from "react-icons/fa";
 import { useLocation, useParams } from "react-router";
 import {
   CreateNewPost,
@@ -7,57 +7,89 @@ import {
   PageHelmet,
   PostCard,
 } from "../components";
-import { usePosts, useUsers } from "../lib";
+import { usePosts } from "../lib";
 
 const UserPost = () => {
   const { userId } = useParams<{ userId: string }>();
-  const {
-    state: { name, email },
-  } = useLocation();
+  if (!userId) {
+    alert("User ID is required for UserPost page.");
+  }
+  const location = useLocation();
+  const name = location.state?.name;
+  const email = location.state?.email;
 
   const {
-    posts: { goBackToUsers, userPosts, isLoadingPosts },
-  } = useUsers(userId || "");
-
-  const {
+    posts: { goBackToUsers, userPosts, isLoadingPosts, isErrorPosts },
     modalActions: { opened, open, close },
-  } = usePosts();
+  } = usePosts(userId || "");
+
+  if (isLoadingPosts) {
+    return (
+      <div className="container flex items-center justify-center h-screen mx-auto">
+        <Loader color="#7F56D9" type="dots" />
+      </div>
+    );
+  }
+
+  if (isErrorPosts) {
+    return (
+      <div className="container flex flex-col items-center justify-center h-screen mx-auto gap-y-2">
+        <Text c="red" size="xl" fw={700}>
+          "Failed to load posts. Please try again later."
+        </Text>
+        <Button
+          size="sm"
+          variant="outline"
+          leftSection={<FaHome />}
+          onClick={goBackToUsers}
+        >
+          View Users
+        </Button>
+      </div>
+    );
+  }
 
   return (
     <>
       <PageHelmet title="User Posts" />
       <section className="container h-screen p-24 mx-auto">
-        {isLoadingPosts ? (
-          <div className="mx-auto w-fit">
-            <Loader color="#7F56D9" type="dots" />
+        <>
+          <div>
+            <div
+              className="flex items-center mb-4 cursor-pointer gap-x-2"
+              onClick={goBackToUsers}
+            >
+              <FaArrowLeft />
+              <Text>Back to Users</Text>
+            </div>
+            <h1 className="text-4xl font-bold">
+              {name ? (
+                name
+              ) : (
+                <span className="text-red-500">Name not available</span>
+              )}
+            </h1>
+            <div className="flex gap-x-4">
+              <p>
+                {email ? (
+                  email
+                ) : (
+                  <span className="text-red-500">Email not available</span>
+                )}
+              </p>
+              <p>{userPosts?.length}</p>
+            </div>
           </div>
-        ) : (
-          <>
-            <div>
-              <div
-                className="flex items-center mb-4 cursor-pointer gap-x-2"
-                onClick={goBackToUsers}
-              >
-                <FaArrowLeft />
-                <Text>Back to Users</Text>
-              </div>
-              <h1 className="text-4xl font-bold">{name}</h1>
-              <div className="flex gap-x-4">
-                <p>{email}</p>
-                <p>{userPosts?.length}</p>
-              </div>
-            </div>
 
-            <div className="grid grid-cols-3 gap-12 my-10">
-              <NewPostCard onOpen={open} />
-              {userPosts?.map((post) => (
-                <PostCard key={post.id} post={post} />
-              ))}
-            </div>
+          <div className="grid grid-cols-3 gap-12 py-10 pb-10">
+            <NewPostCard onOpen={open} />
+            {userPosts?.map((post) => (
+              <PostCard key={post.id} post={post} />
+            ))}
+          </div>
 
-            <CreateNewPost opened={opened} close={close} />
-          </>
-        )}
+          <CreateNewPost opened={opened} close={close} userId={userId || ""} />
+        </>
       </section>
     </>
   );

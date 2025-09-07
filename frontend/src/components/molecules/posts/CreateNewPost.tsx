@@ -4,12 +4,13 @@ import { usePosts } from "../../../lib";
 type Props = {
   opened: boolean;
   close(): void;
+  userId: string;
 };
 
-export const CreateNewPost = ({ opened, close }: Props) => {
+export const CreateNewPost = ({ opened, close, userId }: Props) => {
   const {
     formActions: { handleCreatePost, form },
-  } = usePosts();
+  } = usePosts(userId);
 
   return (
     <Modal
@@ -24,7 +25,7 @@ export const CreateNewPost = ({ opened, close }: Props) => {
     >
       <form
         className="flex flex-col gap-y-5"
-        onSubmit={form.onSubmit(handleCreatePost)}
+        onSubmit={form.onSubmit((values) => handleCreatePost(values, close))}
       >
         <TextInput
           label="Post Title"

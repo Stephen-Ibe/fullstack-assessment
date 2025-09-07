@@ -12,7 +12,7 @@ const router = createBrowserRouter([
       { Component: Home, index: true },
       { Component: UserPost, path: "/:userId/posts" },
     ],
-    hasErrorBoundary: true,
+    // errorElement: <ErrorElement />,
   },
   { path: "*", Component: NotFound },
 ]);

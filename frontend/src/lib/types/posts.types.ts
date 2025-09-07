@@ -5,3 +5,9 @@ export type Post = {
   body: string;
   created_at: string;
 };
+
+export type CreateNewPostPayload = {
+  userId: string;
+  title: string;
+  body: string;
+};

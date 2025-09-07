@@ -1,13 +1,9 @@
 import { useNavigate } from "react-router";
-import { useGetAllUsers, useGetUsersPosts } from "../api";
+import { useGetAllUsers } from "../api";
 
-export const useUsers = (userId: string = "") => {
+export const useUsers = () => {
   const navigate = useNavigate();
   const { data: allUsers, isLoading } = useGetAllUsers(0, 4);
-
-  const { data: userPosts, isLoading: isLoadingPosts } = useGetUsersPosts(
-    userId || ""
-  );
 
   const gotoUserPosts = ({
     id,
@@ -21,16 +17,7 @@ export const useUsers = (userId: string = "") => {
     navigate(`/${id}/posts`, { state: { name, email } });
   };
 
-  const goBackToUsers = () => {
-    if (window.history.length > 1) {
-      navigate(-1);
-    } else {
-      navigate("/");
-    }
-  };
-
   return {
     user: { allUsers, isLoading, gotoUserPosts },
-    posts: { userPosts, isLoadingPosts, goBackToUsers },
   };
 };

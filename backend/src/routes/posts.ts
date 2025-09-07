@@ -1,5 +1,6 @@
 import { Request, Response, Router } from "express";
 import { createPost, deletePostById, getPosts } from "../db/posts";
+import { getUsers } from "../db/users";
 
 const router = Router();
 
@@ -14,6 +15,13 @@ router.get("/", async (req: Request, res: Response) => {
   const userId = req.query.userId?.toString();
   if (!userId) {
     res.status(400).send({ error: "userId is required" });
+    return;
+  }
+  // Check if user exists
+  const users = await getUsers(0, 10000); // get all users (or optimize for large datasets)
+  const userExists = users.some((u: any) => u.id === userId);
+  if (!userExists) {
+    res.status(404).send({ error: "User not found" });
     return;
   }
   const posts = await getPosts(userId);

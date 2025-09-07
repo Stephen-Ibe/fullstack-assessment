@@ -1,5 +1,5 @@
 import { Client } from "../../config";
-import type { Post } from "../../types";
+import type { CreateNewPostPayload, Post } from "../../types";
 
 const postClient = {
   getUsersPosts: async (userId: string): Promise<Post[]> => {
@@ -8,6 +8,10 @@ const postClient = {
         userId,
       },
     });
+  },
+
+  createNewPost: async (payload: CreateNewPostPayload) => {
+    return await Client.post("/posts", payload);
   },
 };
 

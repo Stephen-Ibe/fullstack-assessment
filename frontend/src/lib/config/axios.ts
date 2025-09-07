@@ -15,8 +15,10 @@ instance.interceptors.request.use(
 );
 
 instance.interceptors.response.use(
-  (response) => Promise.resolve(response),
-  (error: AxiosError): Promise<AxiosError> => Promise.reject(error)
+  (response) => response,
+  (error: AxiosError) => {
+    return Promise.reject(error);
+  }
 );
 
 export default instance;
