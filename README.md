@@ -137,11 +137,16 @@ npm test
 ## Repository Structure
 
 - `frontend/` — React + TypeScript frontend application
-  - `src/` — TypeScript source code (components, pages, hooks)
   - `public/` — static assets (index.html, favicon, etc.)
-  - `config/` — configuration files (if any)
-  - `dist/` — compiled JavaScript (created by build)
-  - `__tests__/` — unit and integration tests
+  - `src/` — TypeScript source code (components, pages, hooks)
+    - `assets/` - contains fonts, media files (images, icons etc).
+    - `components` -
+  - `components/` — reusable UI components (atoms, molecules, organisms, templates and providers)
+  - `lib/` — configuration files, utility functions, types, schemas, API setup, and custom React hooks
+  - `pages/` — top-level route pages (e.g., App, NotFound, UserPost)
+  - `__tests__/` — frontend unit and integration tests (run with Vitest)
+  - `index.css` — global styles
+  - `route.ts` — route definitions
   - `package.json` — frontend dependencies and scripts
 
 ## Setup & Run (Frontend)
@@ -179,7 +184,7 @@ npm run preview
   - Custom pagination controls and responsive table layout
   - Error boundary for robust UI
 - All API requests are made to the backend at `http://localhost:3001`.
-- To run tests, use `npm run test` (Jest or Vitest, see config).
+- To run tests, use `npm run test` or `npx vitest` to run all test cases simultaneously.
 - For development, use `npm run dev` (Vite dev server).
 - For production, use `npm run build` and `npm run preview`.
 - Environment variables (if needed) can be set in `.env` in the frontend folder.
