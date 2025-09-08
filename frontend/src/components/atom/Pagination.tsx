@@ -1,5 +1,8 @@
-import { Pagination, type PaginationProps } from "@mantine/core";
+import {
+  Pagination as MantinePagination,
+  type PaginationProps,
+} from "@mantine/core";
 
 type Props = PaginationProps;
 
-export const FSPagination = (props: Props) => <Pagination {...props} />;
+export const Pagination = (props: Props) => <MantinePagination {...props} />;

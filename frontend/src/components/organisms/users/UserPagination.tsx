@@ -1,6 +1,6 @@
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import type { UsersCount } from "../../../lib";
-import { FSPagination } from "../../atom";
+import { Pagination } from "../../atom";
 import { PaginationIcons } from "../../molecules";
 
 type Props = {
@@ -14,7 +14,7 @@ export const UserPagination = ({
   usersCount,
   handlePaginationChange,
 }: Props) => (
-  <FSPagination
+  <Pagination
     value={activePage + 1}
     total={usersCount ? Math.ceil(usersCount.count / 4) : 1}
     onChange={handlePaginationChange}
