@@ -10,7 +10,6 @@ export const useUsers = () => {
   const { data: usersCount } = useGetUsersCount();
 
   const handlePaginationChange = (page: number) => {
-    console.log(page - 1);
     setActivePage(page - 1);
   };
 
