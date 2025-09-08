@@ -1,117 +1,128 @@
-# Web Developer Assignment
+# Web Developer Assignment — Backend API
 
-## Backend
+This repository contains a TypeScript/Node.js backend API powered by Express and SQLite. It exposes user and post endpoints, including support for user addresses, creating posts, and deleting posts. Jest + Supertest tests are included.
 
-### Provided Backend
+## Prerequisites
 
-A Node server written in TypeScript is provided.
-The server utilizes an SQLite database (data.db) containing all relevant data, including users posts and adders.
-The server exposes several partial RESTful API endpoints:
+- Node.js 18+ and npm
+- macOS/Linux/Windows
 
-- User Endpoints:
-  - GET /users: Returns a list of users with pagination support.
-  - GET /users/count: Returns the total number of users.
-- Post Endpoint:
-  - GET /posts: Returns posts filtered by a specific user ID, using the userId query parameter (e.g., /posts?userId={userId}).
+## Repository Structure
 
-### Backend Requirements
+- `backend/` — API source, config, and SQLite database
+  - `src/` — TypeScript source
+  - `config/` — configuration files managed by `config`
+  - `data.db` — SQLite database (pre-seeded)
+  - `dist/` — compiled JavaScript (created by build)
 
-You are required to implement the following backend functionalities:
+Note: No frontend is included in this repo. You can connect any frontend to the API using the base URL and endpoints described below.
 
-- **Adders to User**
-  - Extend the existing user-related endpoints to include adders (metadata associated with the user).
-  - Query the adders from the database and include them in the user response.
-  - Ensure the adders are properly validated and formatted before returning to the frontend.
-- **Post Deletion**
-  - Create an endpoint to delete a post by its ID.
-  - Remove the post from the database upon successful deletion.
-  - Return appropriate HTTP status codes and messages.
-- **Add a New Post**
-  - Create an endpoint to add a new post for a user, accepting **Title**, **Body**, and **User ID**.
-  - Validate input data and handle errors.
-  - Save the new post to the database upon success.
+## Configuration
 
-## Front-End
+Configuration uses the `config` package. Files:
 
-### General Requirements
+- `backend/config/default.json` (default runtime)
+- `backend/config/test.json` (used when `NODE_ENV=test` during tests)
 
-- Implement the web UI using **TypeScript**, **React**, **React Query**, and **Tailwind CSS**.
-- Follow the **Figma design** provided in the Resources section.
-- Ensure **graceful handling of API errors** or unexpected data from the backend.
-- Components and pages should have **error and loading states**.
-- Include **at least one unit test** for the web UI.
-- Emphasize **code reusability** and **separation of concerns** in your components.
+Defaults:
 
-### Users Table
+- Port: `3001`
+- DB Path: `./data.db` (relative to `backend/`)
 
-- Set up an internal API that fetches a list of users from your backend API, using the pagination.
-- Display the users in an organized table with the following features:
-  - **Pagination**: Show 4 users per page.
-  - **User Details**:
-    - Full Name
-    - Email Address
-    - Address formatted as "street, state, city, zipcode". Keep the address column at 392px width and use ellipsis (...) for any overflow.
+## Setup & Run (Backend)
 
-### User Posts
+1. Install dependencies
 
-- When clicking on a user row, navigate to a new page that displays a list of the user's posts.
-- Fetch the user's posts from your backend API.
-- The page should include:
-  - A header with a summary of the user and the number of posts.
-  - A list of all posts (**no pagination required**).
-  - Each post should display:
-    - **Title**
-    - **Body**
-    - A **Delete** icon.
-      - Clicking the Delete icon should delete the post via your backend API and update the UI accordingly.
-  - An option to **add a new post**:
-    - Include a button that opens a form to create a new post with **Title** and **Body** fields.
-    - Upon submission, the new post should be saved via your backend API and appear in the list of posts without requiring a page refresh.
-- Ensure the design is intuitive and posts are easily readable by closely following the provided Figma design.
+```
+cd backend
+npm install
+```
 
-## Guidelines
+2. Development server (ts-node)
 
-1. **State Management with React Query**
-   - Use React Query to manage server state.
-   - Ensure efficient data fetching, caching, and synchronization with the backend.
-   - Utilize React Query's features to handle loading and error states.
-2. **Code Reusability and Separation**
-   - Structure your components to promote reusability and maintainability.
-   - Abstract shared logic into custom hooks or utility functions where appropriate.
-   - Follow best practices for component composition and props management.
-3. **Responsiveness**
-   - Ensure the application is responsive and functions well on various screen sizes and devices.
-   - Use Tailwind CSS utilities to create responsive layouts.
-4. **Performance Optimization**
-   - Optimize the application for performance, minimizing unnecessary re-renders.
-   - Use React's memoization techniques where applicable.
-   - Efficiently manage list rendering.
-5. **Error Handling**
-   - Implement robust error handling for API requests and unexpected data.
-   - Provide meaningful feedback to the user in case of errors.
-   - Use try-catch blocks and handle promise rejections appropriately in your backend.
-6. **Testing**
-   - Include at least one unit test for a critical component or functionality in your frontend code.
-   - Use testing libraries such as Jest and React Testing Library.
-   - Write tests that are meaningful and cover important use cases.
+```
+npm run dev
+```
 
-## Resources
+Server starts on the configured port (default `3001`).
 
-- **Backend Server**: A partially implemented Node server in TypeScript will be provided. You are expected to complete the specified backend functionalities.
-- **SQLite Database**: The backend uses the `data.db` SQLite database, which contains all necessary data.
-- **Figma Design**: Follow the design specifications outlined in the provided Figma file.
-  [Figma Design for Web UI](https://www.figma.com/design/Wkbz27sGWBOFMDocOck4mm/Full-Stack-Developer-Assignment?node-id=0-1&node-type=canvas&t=zK4X8qKaPmxu84XZ-0)
+3. Production build + start
 
-## Deliverables
+```
+npm run build
+npm start
+```
 
-- A full-stack application that meets the above requirements.
-- Source code organized and documented for readability.
-- Completed backend functionalities as specified.
-- At least one unit test demonstrating testing of a component or functionality.
-- Instructions on how to run the application locally, including setting up the backend and frontend.
+Build emits JS to `dist/` and starts the compiled server.
 
-## Submission Instructions
+## Database
 
-- **Code Repository**: Provide access to your code via a Git repository (e.g., GitHub, GitLab).
-- **Readme File**: Include a `README.md` file with instructions on how to install dependencies, set up the database, run migrations (if any), and start both the backend and frontend servers.
-- **Testing Instructions**: Include instructions on how to run your unit tests.
+- Uses SQLite at `backend/data.db` (pre-seeded). No migrations are required for this assignment.
+- To reset the DB, you can replace `data.db` with a fresh copy if provided, or create a new SQLite file and seed the required tables (`users`, `addresses`, `posts`).
+
+## API Endpoints
+
+Base URL: `http://localhost:3001`
+
+- `GET /users?pageNumber=<number>&pageSize=<number>`
+
+  - Returns a paginated list of users including `addresses: Address[]`.
+  - Defaults: `pageNumber=0`, `pageSize=4`.
+  - 400 on invalid pagination; 500 on server error.
+
+- `GET /users/count`
+
+  - Returns `{ count: number }` with total user count.
+
+- `GET /posts?userId=<string>`
+
+  - Returns posts for a specific `userId`.
+  - 400 if `userId` missing; 500 on server error.
+
+- `POST /posts`
+
+  - JSON body: `{ "title": string, "body": string, "userId": string | number }`
+  - Creates a post and returns the created post with `201`.
+  - 400 on invalid input; 500 on server error.
+
+- `DELETE /posts/:id`
+  - Deletes a post by ID.
+  - 200 on success; 404 if not found; 500 on error.
+
+### Curl Examples
+
+```
+# List users (with addresses)
+curl 'http://localhost:3001/users?pageNumber=0&pageSize=4'
+
+# Count users
+curl 'http://localhost:3001/users/count'
+
+# List posts for a user
+curl 'http://localhost:3001/posts?userId=<USER_ID>'
+
+# Create a post
+curl -X POST 'http://localhost:3001/posts' \
+  -H 'Content-Type: application/json' \
+  -d '{"title":"Hello","body":"World","userId":"<USER_ID>"}'
+
+# Delete a post
+curl -X DELETE 'http://localhost:3001/posts/<POST_ID>'
+```
+
+## Testing Instructions
+
+Tests are written with Jest + Supertest and run against the included SQLite database using `NODE_ENV=test` configuration.
+
+Run all tests:
+
+```
+cd backend
+npm test
+```
+
+## Implementation Notes
+
+- CORS and JSON body parsing are enabled.
+- IDs are TEXT (UUIDs for posts) to align with the SQLite schema.
+- The server exports the Express `app` for testing and only listens when executed directly.
