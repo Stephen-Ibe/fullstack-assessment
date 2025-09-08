@@ -1,3 +1,4 @@
 export * from "./UserPagination";
+export * from "./UsersError";
 export * from "./UsersTable";
 export { default as UserTableRow } from "./UserTableRow";

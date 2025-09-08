@@ -1,8 +1,9 @@
-import { Button, Text, Title } from "@mantine/core";
+import { Title } from "@mantine/core";
 import { useMemo } from "react";
 import {
   PageHelmet,
   UserPagination,
+  UsersError,
   UsersTable,
   UserTableRow,
 } from "../components";
@@ -21,31 +22,7 @@ function App() {
   } = useUsers();
 
   const userRows = useMemo(() => {
-    if (!allUsers)
-      return (
-        <tr>
-          <td
-            colSpan={3}
-            style={{ textAlign: "center", padding: "2rem 0" }}
-            className=""
-          >
-            <Text>
-              {allUsersError
-                ? typeof allUsersError === "string"
-                  ? allUsersError
-                  : allUsersError.message
-                : "No users found."}
-            </Text>
-            <Button
-              size="xs"
-              onClick={() => window.location.reload()}
-              className="mt-2"
-            >
-              Try Again
-            </Button>
-          </td>
-        </tr>
-      );
+    if (!allUsers) return <UsersError allUsersError={allUsersError} />;
     return allUsers.map(({ id, name, email, address }: User) => (
       <UserTableRow
         key={id}

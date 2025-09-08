@@ -37,7 +37,7 @@ export const UserPagination = ({
           minWidth: "clamp(28px, 8vw, 36px)",
           fontSize: "clamp(0.85rem, 3vw, 1rem)",
           padding: "0 clamp(4px, 2vw, 8px)",
-          "&[data-active]": { color: "#7F56D9" },
+          "&[dataActive]": { color: "#7F56D9" },
         },
       }}
       nextIcon={() => (
