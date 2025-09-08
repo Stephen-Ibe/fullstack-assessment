@@ -14,9 +14,12 @@ const TableRow = ({ data: { name, email, address }, onClick }: Props) => {
   return (
     <Table.Tr
       onClick={onClick}
-      style={{ cursor: onClick ? "pointer" : "default" }}
+      style={{
+        cursor: onClick ? "pointer" : "default",
+        borderBottom: "1px solid #eee",
+      }}
     >
-      <Table.Td style={{ maxWidth: 120, overflow: "hidden" }}>
+      <Table.Td style={{ maxWidth: 140, overflow: "hidden" }}>
         <span
           style={{
             display: "block",
@@ -28,7 +31,7 @@ const TableRow = ({ data: { name, email, address }, onClick }: Props) => {
           {name}
         </span>
       </Table.Td>
-      <Table.Td style={{ maxWidth: 160, overflow: "hidden" }}>
+      <Table.Td style={{ maxWidth: 180, overflow: "hidden" }}>
         <span
           style={{
             display: "block",

@@ -27,11 +27,13 @@ export const UsersTable = React.memo(({ isLoading, userRows }: Props) => {
     <div className="users-table-wrapper">
       <Table
         withTableBorder
-        horizontalSpacing="lg"
-        verticalSpacing="md"
+        highlightOnHover
+        withRowBorders={false}
+        horizontalSpacing="xl"
+        verticalSpacing="lg"
         style={{ minWidth: 320, width: "100%" }}
       >
-        <Table.Thead>
+        <Table.Thead style={{ borderBottom: "none" }}>
           <Table.Tr>
             <Table.Th
               className="user-table-ellipsis table-head-small"
