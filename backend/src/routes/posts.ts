@@ -21,7 +21,7 @@ router.get("/", async (req: Request, res: Response) => {
   const users = await getUsers(0, 10000); // get all users (or optimize for large datasets)
   const userExists = users.some((u: any) => u.id === userId);
   if (!userExists) {
-    res.status(404).send({ message: "User not found" });
+    res.status(404).send({ message: "User not found." });
     return;
   }
   const posts = await getPosts(userId);
@@ -39,17 +39,17 @@ router.delete("/:id", async (req: Request, res: Response) => {
   try {
     const id = req.params.id?.toString();
     if (!id) {
-      res.status(400).send({ message: "Post id is required" });
+      res.status(400).send({ message: "Post id is required." });
       return;
     }
     const changes = await deletePostById(id);
     if (changes === 0) {
-      res.status(404).send({ message: "Post not found" });
+      res.status(404).send({ message: "Post not found." });
       return;
     }
-    res.status(200).send({ message: "Post deleted" });
+    res.status(200).send({ message: "Post deleted." });
   } catch (e) {
-    res.status(500).send({ message: "Failed to delete post" });
+    res.status(500).send({ message: "Failed to delete post." });
   }
 });
 

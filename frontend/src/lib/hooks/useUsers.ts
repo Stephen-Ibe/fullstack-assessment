@@ -6,7 +6,11 @@ export const useUsers = () => {
   const navigate = useNavigate();
   const [activePage, setActivePage] = useState<number>(0);
 
-  const { data: allUsers, isLoading } = useGetAllUsers(activePage, 4);
+  const {
+    data: allUsers,
+    isLoading,
+    error: allUsersError,
+  } = useGetAllUsers(activePage, 4);
   const { data: usersCount } = useGetUsersCount();
 
   const handlePaginationChange = (page: number) => {
@@ -31,6 +35,7 @@ export const useUsers = () => {
       isLoading,
       gotoUserPosts,
       usersCount,
+      allUsersError,
       paginationData: { activePage, setActivePage, handlePaginationChange },
     },
   };
