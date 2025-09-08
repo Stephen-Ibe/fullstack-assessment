@@ -6,7 +6,13 @@ import { useUsers, type User } from "../lib";
 
 function App() {
   const {
-    user: { allUsers, isLoading, gotoUserPosts, usersCount },
+    user: {
+      allUsers,
+      isLoading,
+      gotoUserPosts,
+      usersCount,
+      paginationData: { activePage, handlePaginationChange },
+    },
   } = useUsers();
 
   const userRows = useMemo(() => {
@@ -52,7 +58,9 @@ function App() {
             </Table>
             <div className="my-6 ml-auto w-fit">
               <Pagination
+                value={activePage + 1}
                 total={usersCount ? Math.ceil(usersCount.count / 4) : 1}
+                onChange={handlePaginationChange}
                 color="grape.1"
                 autoContrast
                 styles={{

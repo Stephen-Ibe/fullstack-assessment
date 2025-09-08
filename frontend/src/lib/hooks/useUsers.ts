@@ -1,10 +1,18 @@
+import { useState } from "react";
 import { useNavigate } from "react-router";
 import { useGetAllUsers, useGetUsersCount } from "../api";
 
 export const useUsers = () => {
   const navigate = useNavigate();
-  const { data: allUsers, isLoading } = useGetAllUsers(0, 4);
+  const [activePage, setActivePage] = useState<number>(0);
+
+  const { data: allUsers, isLoading } = useGetAllUsers(activePage, 4);
   const { data: usersCount } = useGetUsersCount();
+
+  const handlePaginationChange = (page: number) => {
+    console.log(page - 1);
+    setActivePage(page - 1);
+  };
 
   const gotoUserPosts = ({
     id,
@@ -19,6 +27,12 @@ export const useUsers = () => {
   };
 
   return {
-    user: { allUsers, isLoading, gotoUserPosts, usersCount },
+    user: {
+      allUsers,
+      isLoading,
+      gotoUserPosts,
+      usersCount,
+      paginationData: { activePage, setActivePage, handlePaginationChange },
+    },
   };
 };
