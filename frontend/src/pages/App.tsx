@@ -6,7 +6,7 @@ import { useUsers, type User } from "../lib";
 
 function App() {
   const {
-    user: { allUsers, isLoading, gotoUserPosts },
+    user: { allUsers, isLoading, gotoUserPosts, usersCount },
   } = useUsers();
 
   const userRows = useMemo(() => {
@@ -52,27 +52,27 @@ function App() {
             </Table>
             <div className="my-6 ml-auto w-fit">
               <Pagination
-                total={10}
+                total={usersCount ? Math.ceil(usersCount.count / 4) : 1}
                 color="grape.1"
-                radius="md"
                 autoContrast
                 styles={{
                   control: {
                     border: "none",
+                    color: "#717680",
                     "&[data-active]": { color: "#7F56D9" },
                   },
                 }}
-                nextIcon={({ ...props }) => (
-                  <Fragment {...props}>
-                    <div className="flex items-center gap-x-2">
+                nextIcon={() => (
+                  <Fragment>
+                    <div className="flex items-center gap-x-2 py-2.5 px-3">
                       <span>Next</span>
                       <FaArrowRight />
                     </div>
                   </Fragment>
                 )}
-                previousIcon={({ ...props }) => (
-                  <Fragment {...props}>
-                    <div className="flex items-center gap-x-2">
+                previousIcon={() => (
+                  <Fragment>
+                    <div className="flex items-center gap-x-2 p-2">
                       <FaArrowLeft />
                       <span>Previous</span>
                     </div>

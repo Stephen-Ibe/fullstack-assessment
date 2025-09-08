@@ -1,9 +1,10 @@
 import { useNavigate } from "react-router";
-import { useGetAllUsers } from "../api";
+import { useGetAllUsers, useGetUsersCount } from "../api";
 
 export const useUsers = () => {
   const navigate = useNavigate();
   const { data: allUsers, isLoading } = useGetAllUsers(0, 4);
+  const { data: usersCount } = useGetUsersCount();
 
   const gotoUserPosts = ({
     id,
@@ -18,6 +19,6 @@ export const useUsers = () => {
   };
 
   return {
-    user: { allUsers, isLoading, gotoUserPosts },
+    user: { allUsers, isLoading, gotoUserPosts, usersCount },
   };
 };

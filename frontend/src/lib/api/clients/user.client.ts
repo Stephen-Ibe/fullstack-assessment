@@ -1,5 +1,5 @@
 import { Client } from "../../config";
-import type { User } from "../../types";
+import type { User, UsersCount } from "../../types";
 
 const userClient = {
   getAllUsers: async ({
@@ -15,6 +15,10 @@ const userClient = {
         pageNumber,
       },
     });
+  },
+
+  getUsersCount: async (): Promise<UsersCount> => {
+    return await Client.get("/users/count");
   },
 };
 

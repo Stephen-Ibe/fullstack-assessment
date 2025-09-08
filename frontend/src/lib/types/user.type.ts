@@ -8,3 +8,7 @@ export type User = {
   phone: string;
   address: Address[];
 };
+
+export type UsersCount = {
+  count: number;
+};
