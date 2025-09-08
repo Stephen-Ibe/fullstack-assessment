@@ -33,7 +33,7 @@ function App() {
   return (
     <>
       <PageHelmet title="Home" />
-      <section className="container mx-auto p-24 h-screen">
+      <section className="container mx-auto p-8 lg:p-24 h-screen">
         <div>
           <Title order={1}>Users</Title>
           <div className="my-8">

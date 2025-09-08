@@ -16,10 +16,41 @@ const TableRow = ({ data: { name, email, address }, onClick }: Props) => {
       onClick={onClick}
       style={{ cursor: onClick ? "pointer" : "default" }}
     >
-      <Table.Td>{name}</Table.Td>
-      <Table.Td>{email}</Table.Td>
-      <Table.Td>
-        {address && address.length > 0 ? formatAddress(address[0]) : "-"}
+      <Table.Td style={{ maxWidth: 120, overflow: "hidden" }}>
+        <span
+          style={{
+            display: "block",
+            whiteSpace: "nowrap",
+            textOverflow: "ellipsis",
+            overflow: "hidden",
+          }}
+        >
+          {name}
+        </span>
+      </Table.Td>
+      <Table.Td style={{ maxWidth: 160, overflow: "hidden" }}>
+        <span
+          style={{
+            display: "block",
+            whiteSpace: "nowrap",
+            textOverflow: "ellipsis",
+            overflow: "hidden",
+          }}
+        >
+          {email}
+        </span>
+      </Table.Td>
+      <Table.Td style={{ maxWidth: 392, overflow: "hidden" }}>
+        <span
+          style={{
+            display: "block",
+            whiteSpace: "nowrap",
+            textOverflow: "ellipsis",
+            overflow: "hidden",
+          }}
+        >
+          {address && address.length > 0 ? formatAddress(address[0]) : "-"}
+        </span>
       </Table.Td>
     </Table.Tr>
   );

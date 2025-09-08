@@ -1,4 +1,5 @@
 import { Loader } from "@mantine/core";
+import React, { useMemo } from "react";
 import { Table } from "../../atom";
 
 type Props = {
@@ -6,17 +7,10 @@ type Props = {
   userRows: React.ReactNode;
 };
 
-export const UsersTable = ({ isLoading, userRows }: Props) => (
-  <Table withTableBorder horizontalSpacing="lg" verticalSpacing="md">
-    <Table.Thead>
-      <Table.Tr>
-        <Table.Th>Full Name</Table.Th>
-        <Table.Th>Email Address</Table.Th>
-        <Table.Th style={{ width: 392 }}>Address</Table.Th>
-      </Table.Tr>
-    </Table.Thead>
-    <Table.Tbody>
-      {isLoading ? (
+export const UsersTable = React.memo(({ isLoading, userRows }: Props) => {
+  const renderedRows = useMemo(() => {
+    if (isLoading) {
+      return (
         <Table.Tr>
           <Table.Td colSpan={3} className="text-center">
             <div className="mx-auto w-fit">
@@ -24,9 +18,76 @@ export const UsersTable = ({ isLoading, userRows }: Props) => (
             </div>
           </Table.Td>
         </Table.Tr>
-      ) : (
-        userRows
-      )}
-    </Table.Tbody>
-  </Table>
-);
+      );
+    }
+    return userRows;
+  }, [isLoading, userRows]);
+
+  return (
+    <div className="users-table-wrapper">
+      <Table
+        withTableBorder
+        horizontalSpacing="lg"
+        verticalSpacing="md"
+        style={{ minWidth: 320, width: "100%" }}
+      >
+        <Table.Thead>
+          <Table.Tr>
+            <Table.Th className="user-table-ellipsis" style={{ minWidth: 120 }}>
+              Full Name
+            </Table.Th>
+            <Table.Th className="user-table-ellipsis" style={{ minWidth: 160 }}>
+              Email Address
+            </Table.Th>
+            <Table.Th style={{ minWidth: 180, maxWidth: 392 }}>
+              Address
+            </Table.Th>
+          </Table.Tr>
+        </Table.Thead>
+        <Table.Tbody>{renderedRows}</Table.Tbody>
+      </Table>
+      <style>{`
+        .users-table-wrapper {
+          width: 100%;
+          overflow-x: auto;
+        }
+        .user-table-ellipsis {
+          max-width: 120px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+        @media (max-width: 900px) {
+          .user-table-ellipsis {
+            max-width: 100px !important;
+          }
+          .mantine-Table-root {
+            font-size: 0.95rem;
+          }
+          .mantine-Table-th, .mantine-Table-td {
+            padding-left: 10px !important;
+            padding-right: 10px !important;
+          }
+        }
+        @media (max-width: 600px) {
+          .user-table-ellipsis {
+            max-width: 70px !important;
+          }
+          .mantine-Table-root {
+            font-size: 0.85rem;
+          }
+          .mantine-Table-th, .mantine-Table-td {
+            padding-left: 6px !important;
+            padding-right: 6px !important;
+          }
+          .mantine-Table-th {
+            min-width: 80px !important;
+          }
+          .mantine-Table-td {
+            min-width: 80px !important;
+          }
+        }
+      `}</style>
+    </div>
+  );
+});
