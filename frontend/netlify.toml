@@ -1,3 +1,11 @@
+[build]
+  command = "npm run build"
+  publish = "dist"   # or "build" depending on Vite/Next output
+  base = "frontend"
+
+[functions]
+  directory = "netlify/functions"   # ✅ must be a directory, not a file
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
