@@ -1,4 +1,4 @@
-import { Button, Textarea, TextInput } from "@mantine/core";
+import { Button, Loader, Text, Textarea, TextInput } from "@mantine/core";
 import { usePosts } from "../../../lib";
 import { FSModal } from "../../atom";
 
@@ -59,15 +59,15 @@ export const CreateNewPost = ({ opened, close, userId }: Props) => {
             Cancel
           </Button>
 
-          <Button
-            type="submit"
-            color="#334155"
-            radius="sm"
-            size="md"
-            loading={isCreatingPost}
-            disabled={isCreatingPost}
-          >
-            Publish
+          <Button type="submit" color="#334155" radius="sm" size="md">
+            {isCreatingPost ? (
+              <div className="flex items-center gap-x-2">
+                <Text>Publish</Text>
+                <Loader type="dots" color="white" />
+              </div>
+            ) : (
+              "Publish"
+            )}
           </Button>
         </div>
       </form>
