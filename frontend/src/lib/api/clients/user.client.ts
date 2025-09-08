@@ -1,14 +1,11 @@
 import { Client } from "../../config";
-import type { User, UsersCount } from "../../types";
+import type { User, UserPaginationData, UsersCount } from "../../types";
 
 const userClient = {
   getAllUsers: async ({
     pageSize = 4,
     pageNumber = 0,
-  }: {
-    pageSize: number;
-    pageNumber: number;
-  }): Promise<User[]> => {
+  }: UserPaginationData): Promise<User[]> => {
     return await Client.get("/users", {
       params: {
         pageSize,

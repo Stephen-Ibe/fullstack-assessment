@@ -12,3 +12,8 @@ export type User = {
 export type UsersCount = {
   count: number;
 };
+
+export type UserPaginationData = {
+  pageSize: number;
+  pageNumber: number;
+};
