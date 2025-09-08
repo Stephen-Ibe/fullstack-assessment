@@ -11,7 +11,7 @@ export const UsersTable = React.memo(({ isLoading, userRows }: Props) => {
   const renderedRows = useMemo(() => {
     if (isLoading) {
       return (
-        <Table.Tr>
+        <Table.Tr data-testid="users-loader">
           <Table.Td colSpan={3} className="text-center">
             <div className="mx-auto w-fit">
               <Loader color="#7F56D9" type="dots" />
