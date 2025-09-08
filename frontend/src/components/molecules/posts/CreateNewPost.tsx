@@ -1,5 +1,6 @@
-import { Button, Modal, Textarea, TextInput } from "@mantine/core";
+import { Button, Textarea, TextInput } from "@mantine/core";
 import { usePosts } from "../../../lib";
+import { FSModal } from "../../atom";
 
 type Props = {
   opened: boolean;
@@ -13,7 +14,7 @@ export const CreateNewPost = ({ opened, close, userId }: Props) => {
   } = usePosts(userId);
 
   return (
-    <Modal
+    <FSModal
       opened={opened}
       onClose={close}
       centered
@@ -70,6 +71,6 @@ export const CreateNewPost = ({ opened, close, userId }: Props) => {
           </Button>
         </div>
       </form>
-    </Modal>
+    </FSModal>
   );
 };

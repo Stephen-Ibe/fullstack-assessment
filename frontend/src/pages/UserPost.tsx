@@ -20,6 +20,7 @@ const UserPost = () => {
   const email = location.state?.email;
 
   const {
+    navigate,
     posts: {
       userPosts,
       isLoadingPosts,
@@ -54,7 +55,7 @@ const UserPost = () => {
           size="sm"
           variant="outline"
           leftSection={<FaHome />}
-          onClick={() => (window.location.href = "/")}
+          onClick={() => navigate("/")}
         >
           View Users
         </Button>

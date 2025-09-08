@@ -94,6 +94,7 @@ export const usePosts = (userId: string = "") => {
   };
 
   return {
+    navigate,
     modalActions: { opened, open, close },
     formActions: { handleCreatePost, isCreatingPost, form },
     posts: {
