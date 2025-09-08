@@ -1,5 +1,6 @@
 import { Button, Loader, Text } from "@mantine/core";
 import { FaArrowLeft, FaHome } from "react-icons/fa";
+import { GoDotFill } from "react-icons/go";
 import { useLocation, useParams } from "react-router";
 import {
   ConfirmDelete,
@@ -80,18 +81,24 @@ const UserPost = () => {
               {name ? (
                 name
               ) : (
-                <span className="text-red-500">Name not available</span>
+                <span className="text-red-500 animate-pulse">Loading</span>
               )}
             </h1>
-            <div className="flex gap-x-4">
+            <div className="flex gap-x-2">
               <p>
                 {email ? (
                   email
                 ) : (
-                  <span className="text-red-500">Email not available</span>
+                  <span className="text-red-500 animate-pulse">
+                    Email not available
+                  </span>
                 )}
               </p>
-              <p>{userPosts?.length}</p>
+
+              <div className="flex items-center gap-x-1">
+                <GoDotFill size={10} />
+                <p className="font-semibold">{userPosts?.length} Posts</p>
+              </div>
             </div>
           </div>
 
