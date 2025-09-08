@@ -17,6 +17,13 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   (response) => response,
   (error: AxiosError) => {
+    if (error.response?.status === 404) {
+      return Promise.reject({
+        message:
+          (error.response.data as { message?: string })?.message ||
+          "Resource not found",
+      });
+    }
     return Promise.reject(error?.response?.data || error.message);
   }
 );

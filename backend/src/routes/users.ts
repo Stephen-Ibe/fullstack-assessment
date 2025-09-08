@@ -12,7 +12,7 @@ const router = Router();
  * @param {any} res:Response
  * @returns {any}
  */
-router.get("/", async (req: Request, res: Response) => {
+router.get("/u", async (req: Request, res: Response) => {
   try {
     const pageNumber = Number(req.query.pageNumber) || 0;
     const pageSize = Number(req.query.pageSize) || 4;
