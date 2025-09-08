@@ -67,7 +67,7 @@ const UserPost = () => {
   return (
     <>
       <PageHelmet title="User Posts" />
-      <section className="container h-screen p-24 mx-auto">
+      <section className="container h-screen p-8 lg:p-24 mx-auto">
         <>
           <div>
             <div
@@ -102,7 +102,7 @@ const UserPost = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 py-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 py-10">
             <NewPostCard onOpen={open} />
             {userPosts?.map((post) => (
               <PostCard

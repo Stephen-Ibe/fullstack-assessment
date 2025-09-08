@@ -30,11 +30,16 @@ export const ConfirmDelete = ({
         <span className="font-bold">{postTitle}</span>?
       </Text>
       <div className="mt-6 flex justify-end gap-x-4">
-        <Button variant="light" onClick={onClose}>
+        <Button
+          variant="outline"
+          color="gray"
+          onClick={onClose}
+          disabled={isDeletingPost}
+        >
           Cancel
         </Button>
         <Button
-          color="red.5"
+          color="red.6"
           onClick={() => handleDeletePost(postId)}
           loading={isDeletingPost}
           disabled={isDeletingPost}
