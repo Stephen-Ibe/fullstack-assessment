@@ -33,13 +33,22 @@ export const UsersTable = React.memo(({ isLoading, userRows }: Props) => {
       >
         <Table.Thead>
           <Table.Tr>
-            <Table.Th className="user-table-ellipsis" style={{ minWidth: 120 }}>
+            <Table.Th
+              className="user-table-ellipsis table-head-small"
+              style={{ minWidth: 120 }}
+            >
               Full Name
             </Table.Th>
-            <Table.Th className="user-table-ellipsis" style={{ minWidth: 160 }}>
+            <Table.Th
+              className="user-table-ellipsis table-head-small"
+              style={{ minWidth: 160 }}
+            >
               Email Address
             </Table.Th>
-            <Table.Th style={{ minWidth: 180, maxWidth: 392 }}>
+            <Table.Th
+              className="table-head-small"
+              style={{ minWidth: 180, maxWidth: 392 }}
+            >
               Address
             </Table.Th>
           </Table.Tr>
@@ -57,9 +66,16 @@ export const UsersTable = React.memo(({ isLoading, userRows }: Props) => {
           text-overflow: ellipsis;
           white-space: nowrap;
         }
+        .table-head-small {
+          font-size: 0.8rem !important;
+          border-bottom: none !important;
+        }
         @media (max-width: 900px) {
           .user-table-ellipsis {
             max-width: 100px !important;
+          }
+          .table-head-small {
+            font-size: 0.8rem !important;
           }
           .mantine-Table-root {
             font-size: 0.95rem;
@@ -72,6 +88,9 @@ export const UsersTable = React.memo(({ isLoading, userRows }: Props) => {
         @media (max-width: 600px) {
           .user-table-ellipsis {
             max-width: 70px !important;
+          }
+          .table-head-small {
+            font-size: 0.8rem !important;
           }
           .mantine-Table-root {
             font-size: 0.85rem;

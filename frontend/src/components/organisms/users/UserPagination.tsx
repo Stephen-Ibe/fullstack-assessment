@@ -42,14 +42,14 @@ export const UserPagination = ({
       }}
       nextIcon={() => (
         <PaginationIcons>
-          <span className="hidden xs:inline">Next</span>
+          <span className="hidden md:inline">Next</span>
           <FaArrowRight />
         </PaginationIcons>
       )}
       previousIcon={() => (
         <PaginationIcons>
           <FaArrowLeft />
-          <span className="hidden xs:inline">Previous</span>
+          <span className="hidden md:inline">Previous</span>
         </PaginationIcons>
       )}
     />
