@@ -1,1 +1,1 @@
-export * from "./UserPagination";
+export * from "./users";

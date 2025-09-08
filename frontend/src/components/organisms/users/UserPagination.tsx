@@ -1,7 +1,7 @@
-import { Pagination } from "@mantine/core";
-import { Fragment } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-import type { UsersCount } from "../../lib";
+import type { UsersCount } from "../../../lib";
+import { FSPagination } from "../../atom";
+import { PaginationIcons } from "../../molecules";
 
 type Props = {
   activePage: number;
@@ -14,7 +14,7 @@ export const UserPagination = ({
   usersCount,
   handlePaginationChange,
 }: Props) => (
-  <Pagination
+  <FSPagination
     value={activePage + 1}
     total={usersCount ? Math.ceil(usersCount.count / 4) : 1}
     onChange={handlePaginationChange}
@@ -28,20 +28,16 @@ export const UserPagination = ({
       },
     }}
     nextIcon={() => (
-      <Fragment>
-        <div className="flex items-center gap-x-2 py-2.5 px-3">
-          <span>Next</span>
-          <FaArrowRight />
-        </div>
-      </Fragment>
+      <PaginationIcons>
+        <span>Next</span>
+        <FaArrowRight />
+      </PaginationIcons>
     )}
     previousIcon={() => (
-      <Fragment>
-        <div className="flex items-center gap-x-2 p-2">
-          <FaArrowLeft />
-          <span>Previous</span>
-        </div>
-      </Fragment>
+      <PaginationIcons>
+        <FaArrowLeft />
+        <span>Previous</span>
+      </PaginationIcons>
     )}
   />
 );
