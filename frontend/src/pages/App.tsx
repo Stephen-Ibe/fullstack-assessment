@@ -1,5 +1,6 @@
-import { Loader, Table, Title } from "@mantine/core";
-import { useMemo } from "react";
+import { Loader, Pagination, Table, Title } from "@mantine/core";
+import { Fragment, useMemo } from "react";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { PageHelmet, UserTableRow } from "../components";
 import { useUsers, type User } from "../lib";
 
@@ -49,6 +50,36 @@ function App() {
                 )}
               </Table.Tbody>
             </Table>
+            <div className="my-6 ml-auto w-fit">
+              <Pagination
+                total={10}
+                color="grape.1"
+                radius="md"
+                autoContrast
+                styles={{
+                  control: {
+                    border: "none",
+                    "&[data-active]": { color: "#7F56D9" },
+                  },
+                }}
+                nextIcon={({ ...props }) => (
+                  <Fragment {...props}>
+                    <div className="flex items-center gap-x-2">
+                      <span>Next</span>
+                      <FaArrowRight />
+                    </div>
+                  </Fragment>
+                )}
+                previousIcon={({ ...props }) => (
+                  <Fragment {...props}>
+                    <div className="flex items-center gap-x-2">
+                      <FaArrowLeft />
+                      <span>Previous</span>
+                    </div>
+                  </Fragment>
+                )}
+              />
+            </div>
           </div>
         </div>
       </section>
