@@ -126,3 +126,60 @@ npm test
 - CORS and JSON body parsing are enabled.
 - IDs are TEXT (UUIDs for posts) to align with the SQLite schema.
 - The server exports the Express `app` for testing and only listens when executed directly.
+
+# Web Developer Assignment — Frontend Application
+
+## Prerequisites
+
+- Node.js 18+ and npm
+- macOS/Linux/Windows
+
+## Repository Structure
+
+- `frontend/` — React + TypeScript frontend application
+  - `src/` — TypeScript source code (components, pages, hooks)
+  - `public/` — static assets (index.html, favicon, etc.)
+  - `config/` — configuration files (if any)
+  - `dist/` — compiled JavaScript (created by build)
+  - `__tests__/` — unit and integration tests
+  - `package.json` — frontend dependencies and scripts
+
+## Setup & Run (Frontend)
+
+1. Install dependencies
+
+```
+cd frontend
+npm install
+```
+
+2. Development server
+
+```
+npm run dev
+```
+
+Server starts on the configured port (default `5173` or as set in your Vite/React config).
+
+3. Production build + start
+
+```
+npm run build
+npm run preview
+```
+
+## Important Notes
+
+- Built with React, TypeScript, Mantine UI, React Query, Axios, and Vite.
+- Responsive design: works on desktop, tablet, and mobile.
+- Features:
+  - Paginated user table with address formatting and ellipsis for overflow
+  - User posts listing and creation modal
+  - API error handling and toast notifications
+  - Custom pagination controls and responsive table layout
+  - Error boundary for robust UI
+- All API requests are made to the backend at `http://localhost:3001`.
+- To run tests, use `npm run test` (Jest or Vitest, see config).
+- For development, use `npm run dev` (Vite dev server).
+- For production, use `npm run build` and `npm run preview`.
+- Environment variables (if needed) can be set in `.env` in the frontend folder.
