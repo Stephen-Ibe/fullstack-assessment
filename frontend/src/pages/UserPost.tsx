@@ -71,11 +71,11 @@ const UserPost = () => {
         <>
           <div>
             <div
-              className="flex items-center mb-4 cursor-pointer gap-x-2"
+              className="flex items-center mb-4 cursor-pointer gap-x-1 hover:underline hover:underline-offset-4 w-fit"
               onClick={goBackToUsers}
             >
-              <FaArrowLeft />
-              <Text>Back to Users</Text>
+              <FaArrowLeft size={10} />
+              <Text size="sm">Back to Users</Text>
             </div>
             <h1 className="text-4xl font-bold">
               {name ? (
