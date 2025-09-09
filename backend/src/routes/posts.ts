@@ -95,7 +95,7 @@ router.post("/", async (req: Request, res: Response) => {
     });
     res.status(201).send(created);
   } catch (error) {
-    res.status(500).send({ message: "Failed to create post" });
+    res.status(500).send({ message: error || "Failed to create post" });
   }
 });
 

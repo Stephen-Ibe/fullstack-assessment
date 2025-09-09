@@ -59,8 +59,9 @@ export const usePosts = (userId: string = "") => {
           handleRefetchUserPosts(closeModal);
         },
         onError: (error) => {
+          console.log(error);
           toast.error(
-            `${error ?? "Failed to create post. Please try again."} `
+            `${error?.message ?? "Failed to create post. Please try again."} `
           );
         },
       }

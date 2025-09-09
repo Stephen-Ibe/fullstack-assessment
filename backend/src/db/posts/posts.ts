@@ -45,6 +45,16 @@ export const deletePostById = (id: string): Promise<number> =>
  */
 export const createPost = (input: NewPostInput): Promise<Post> =>
   new Promise((resolve, reject) => {
+    const TITLE_LIMIT = 100;
+    const BODY_LIMIT = 1000;
+    if (input.title.length > TITLE_LIMIT) {
+      reject(`Title must be at most ${TITLE_LIMIT} characters.`);
+      return;
+    }
+    if (input.body.length > BODY_LIMIT) {
+      reject(`Body must be at most ${BODY_LIMIT} characters.`);
+      return;
+    }
     const id = randomUUID();
     const createdAt = new Date().toISOString();
     connection.run(
