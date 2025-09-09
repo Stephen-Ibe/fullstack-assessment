@@ -1,4 +1,6 @@
-# Web Developer Assignment — Backend API
+# Web Developer Assignment
+
+## Backend API
 
 This repository contains a TypeScript/Node.js backend API powered by Express and SQLite. It exposes user and post endpoints, including support for user addresses, creating posts, and deleting posts. Jest + Supertest tests are included.
 
@@ -127,7 +129,7 @@ npm test
 - IDs are TEXT (UUIDs for posts) to align with the SQLite schema.
 - The server exports the Express `app` for testing and only listens when executed directly.
 
-# Web Developer Assignment — Frontend Application
+# Frontend Application
 
 ## Prerequisites
 
@@ -140,14 +142,13 @@ npm test
   - `public/` — static assets (index.html, favicon, etc.)
   - `src/` — TypeScript source code (components, pages, hooks)
     - `assets/` - contains fonts, media files (images, icons etc).
-    - `components` -
-  - `components/` — reusable UI components (atoms, molecules, organisms, templates and providers)
-  - `lib/` — configuration files, utility functions, types, schemas, API setup, and custom React hooks
-  - `pages/` — top-level route pages (e.g., App, NotFound, UserPost)
-  - `__tests__/` — frontend unit and integration tests (run with Vitest)
-  - `index.css` — global styles
-  - `route.ts` — route definitions
-  - `package.json` — frontend dependencies and scripts
+    - `components/` — reusable UI components (atoms, molecules, organisms, templates and providers)
+    - `lib/` — configuration files, utility functions, types, schemas, API setup, and custom React hooks
+    - `pages/` — top-level route pages (e.g., App, NotFound, UserPost)
+    - `__tests__/` — frontend unit and integration tests (run with Vitest)
+    - `index.css` — global styles
+    - `route.ts` — route definitions
+    - `package.json` — frontend dependencies and scripts
 
 ## Setup & Run (Frontend)
 

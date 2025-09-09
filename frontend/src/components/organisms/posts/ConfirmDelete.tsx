@@ -42,6 +42,7 @@ export const ConfirmDelete = ({
           color="red.6"
           onClick={() => handleDeletePost(postId)}
           loading={isDeletingPost}
+          loaderProps={{ type: "dots" }}
           disabled={isDeletingPost}
         >
           Delete
