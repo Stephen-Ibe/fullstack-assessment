@@ -19,6 +19,7 @@ export const PostCard = ({ post, deletePost }: Props) => {
       <div
         className="absolute ml-auto w-fit right-3 top-3 cursor-pointer hover:bg-gray-100 hover:p-2 p-2 hover:rounded-full"
         onClick={deletePost}
+        data-testid="trash-icon"
       >
         <LuTrash2 color="red" />
       </div>

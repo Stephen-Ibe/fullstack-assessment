@@ -1,4 +1,12 @@
-// Add this at the top of your test file
+/**
+ * Unit test for the NotFound component.
+ *
+ * Coverage:
+ * - Renders the not found message correctly
+ * - Ensures compatibility with MantineProvider and React Router (MemoryRouter)
+ * - Mocks window.matchMedia for Mantine UI compatibility
+ */
+
 Object.defineProperty(window, "matchMedia", {
   writable: true,
   value: (query: string) => ({

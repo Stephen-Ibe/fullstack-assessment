@@ -1,5 +1,5 @@
 import { Button } from "@mantine/core";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 
 const NotFound = () => {
   return (
