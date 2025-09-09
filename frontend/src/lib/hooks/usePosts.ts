@@ -2,7 +2,8 @@ import { useForm } from "@mantine/form";
 import { useDisclosure } from "@mantine/hooks";
 import { yupResolver } from "mantine-form-yup-resolver";
 
-import { useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
+import { useCallback, useState } from "react";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { useCreateNewPost, useDeletePostById, useGetUsersPosts } from "../api";
@@ -10,6 +11,7 @@ import { createPostSchema } from "../schema";
 
 export const usePosts = (userId: string = "") => {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const [opened, { open, close }] = useDisclosure(false);
   const [openedDelete, { open: openDelete, close: closeDelete }] =
     useDisclosure(false);
@@ -41,58 +43,68 @@ export const usePosts = (userId: string = "") => {
     validate: yupResolver(createPostSchema),
   });
 
-  const handleRefetchUserPosts = (close: () => void) => {
-    refetchUserPosts();
-    close();
-  };
+  const handleInvalidatePosts = useCallback(
+    (close: () => void) => {
+      queryClient.invalidateQueries({ queryKey: ["posts", userId] });
+      close();
+    },
+    [queryClient, userId]
+  );
 
-  const handleCreatePost = (
-    values: { title: string; body: string },
-    closeModal: () => void
-  ) => {
-    createNewPost(
-      { ...values, userId },
-      {
+  const handleCreatePost = useCallback(
+    (values: { title: string; body: string }, closeModal: () => void) => {
+      createNewPost(
+        { ...values, userId },
+        {
+          onSuccess: () => {
+            toast.success("Post created successfully!");
+            form.reset();
+            handleInvalidatePosts(closeModal);
+          },
+          onError: (error) => {
+            toast.error(
+              `${error?.message ?? "Failed to create post. Please try again."} `
+            );
+          },
+        }
+      );
+    },
+    [createNewPost, userId, form, handleInvalidatePosts]
+  );
+
+  const handleDeletePost = useCallback(
+    (postId: string) => {
+      deletePostById(postId, {
         onSuccess: () => {
-          toast.success("Post created successfully!");
-          form.reset();
-          handleRefetchUserPosts(closeModal);
+          toast.success("Post deleted successfully!");
+          closeDelete();
+          queryClient.invalidateQueries({ queryKey: ["posts", userId] });
         },
         onError: (error) => {
-          console.log(error);
           toast.error(
-            `${error?.message ?? "Failed to create post. Please try again."} `
+            `${error ?? "Failed to delete post. Please try again."} `
           );
         },
-      }
-    );
-  };
+      });
+    },
+    [deletePostById, queryClient, userId, closeDelete]
+  );
 
-  const handleDeletePost = (postId: string) => {
-    deletePostById(postId, {
-      onSuccess: () => {
-        toast.success("Post deleted successfully!");
-        closeDelete();
-        refetchUserPosts();
-      },
-      onError: (error) => {
-        toast.error(`${error ?? "Failed to delete post. Please try again."} `);
-      },
-    });
-  };
+  const showDeleteModal = useCallback(
+    (postId: string, postTitle: string) => {
+      setSelectedPostData({ postId, postTitle });
+      openDelete();
+    },
+    [setSelectedPostData, openDelete]
+  );
 
-  const showDeleteModal = (postId: string, postTitle: string) => {
-    setSelectedPostData({ postId, postTitle });
-    openDelete();
-  };
-
-  const goBackToUsers = () => {
+  const goBackToUsers = useCallback(() => {
     if (window.history.length > 1) {
       navigate(-1);
     } else {
       navigate("/");
     }
-  };
+  }, [navigate]);
 
   return {
     navigate,
